@@ -10,29 +10,23 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        res=[]
-        def backtrack(start):
-            if start == len(nums):
-                res.append(nums[:])
-                return
-            for i in range(start,len(nums)):
-                nums[start],nums[i] = nums[i],nums[start]
-                backtrack(start+1)
-                nums[start],nums[i] = nums[i],nums[start]
-        backtrack(0)
-        num = int("".join(map(str,nums)))
-        temp = [int("".join(map(str,x))) for x in res]
-        temp.sort()
-        ans = []
-        for i in temp:
-            if i>num:
-                ans = [int(digit) for digit in str(i)]
+        point=-1
+        for i in range(len(nums)-1,0,-1):
+            if nums[i] > nums [i-1]:
+                point = i-1
                 break
-        if(ans==[]):
-            nums= [int(digit) for digit in str(temp[0])]
-        else:
-            nums= ans
-        return        
+        if point==-1:
+            nums.reverse()
+            return
+
+        for i in range(len(nums)-1,point,-1):
+            if nums[i]>nums[point]:
+                nums[i],nums[point] = nums[point],nums[i]
+                break
+        nums[point+1:] = reversed(nums[point+1:])
+        
+
+        
 
 # @lc code=end
 
