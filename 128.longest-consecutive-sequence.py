@@ -7,14 +7,19 @@
 # @lc code=start
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        ans = 0
-        temp=0
-        for i in range(0,len(nums)-1):
-            if nums[i]+1==nums[i+1]:
-                temp+=1
-            else:
-                ans=max(temp,ans)
-                temp=0
-        
+        if len(nums)==0:
+            return 0
+        st= set()
+        max_count = 1
+        for i in nums:
+            st.add(i)
+        for i in st:
+            if i-1 not in st:
+                count = 1
+                while i+1 in st:
+                    count+=1
+                    i+=1
+                max_count = max(max_count,count)
+        return max_count        
 # @lc code=end
 
